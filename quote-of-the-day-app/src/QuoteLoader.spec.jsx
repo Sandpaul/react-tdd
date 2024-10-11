@@ -31,6 +31,24 @@ describe("QuoteLoader", () => {
         expect(await screen.getByRole("status")).toHaveTextContent(
             "Quote is loading..."
         )
-    }) 
+    })
+
+    it("informs the user of errors", async () => {
+        stubQuoteApi.use(
+            http.get(
+                "https://example.com/quoteoftheday",
+                () => {
+                    return HttpResponse.error()
+                },
+                { once: true }
+            )
+        )
+
+        render(<QuoteLoader />)
+
+        expect(
+            await screen.findByText("Error loading quote. Please try again later")
+        ).toBeInTheDocument()
+      })
 })
 

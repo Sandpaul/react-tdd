@@ -4,6 +4,7 @@ import { render, screen } from "@testing-library/react";
 import Quote from "./Quote";
 import { expect } from "chai";
 
+
 describe("Quote component", () => {
   it("renders heading text", () => {
     render(<Quote />);
