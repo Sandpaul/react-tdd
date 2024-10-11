@@ -18,6 +18,15 @@ describe("Quote component", () => {
 
     expect(screen.getByText("Truth eludes power")).toBeInTheDocument()
   })
+
+  it("has a Like button", async () => {
+    const user = userEvent.setup();
+  
+    render(<Quote text="Optimise for Clarity" />);
+  
+    const likeButton = await screen.findByRole("button");
+    expect(likeButton).toHaveTextContent("Like");
+  });
 });
 
 
