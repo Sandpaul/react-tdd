@@ -11,6 +11,21 @@ const stubQuoteApiRoutes = [
         return HttpResponse.json({
             text: "Just do it",
         })
+    }),
+    http.post("https://example.com/quote", async ({ request }) => {
+        const req = await request.json()
+
+        if (req.text == undefined) {
+            return new HttpResponse("Missing quote text", { status: 400 })
+        }
+
+        if (typeof req.text != "string") {
+            return new HttpResponse("string required for filed text", {
+                status: 400,
+            })
+        }
+
+        return HttpResponse.json({ status: 204 })
     })
 ]
 
@@ -51,4 +66,3 @@ describe("QuoteLoader", () => {
         ).toBeInTheDocument()
       })
 })
-
